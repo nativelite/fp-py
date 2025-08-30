@@ -72,7 +72,12 @@ def get_components() -> Dict[str, str]:
     }
 
     try:
-        loc = locale.getdefaultlocale()[0]
+        # Attempt to use the user's default setting for LC_CTYPE
+        try:
+            locale.setlocale(locale.LC_CTYPE, "")
+        except Exception:
+            pass
+        loc = locale.getlocale()[0]
     except Exception:
         loc = None
     components["locale"] = loc or "unknown"
