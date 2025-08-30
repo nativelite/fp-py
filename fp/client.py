@@ -10,6 +10,7 @@ from __future__ import annotations
 import json
 import urllib.request
 from typing import Any, Dict, Optional
+from urllib.error import URLError
 
 from . import fingerprint
 
@@ -47,5 +48,23 @@ def post_fingerprint(
         data=json.dumps(payload).encode("utf-8"),
         headers=headers or {"Content-Type": "application/json"},
     )
-    with urllib.request.urlopen(req, timeout=timeout) as resp:
-        return json.loads(resp.read().decode("utf-8"))
+    try:
+        with urllib.request.urlopen(req, timeout=timeout) as resp:
+            try:
+                return json.loads(resp.read().decode("utf-8"))
+            except json.JSONDecodeError as exc:
+                raise ValueError("Response returned invalid JSON") from exc
+    except URLError as exc:
+        return {
+            "error": {
+                "type": exc.__class__.__name__,
+                "message": str(exc),
+            }
+        }
+    except TimeoutError as exc:
+        return {
+            "error": {
+                "type": exc.__class__.__name__,
+                "message": str(exc),
+            }
+        }
