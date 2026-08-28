@@ -7,6 +7,8 @@ are used to keep the implementation lightweight.
 
 from __future__ import annotations
 
+__version__ = "0.1.0"
+
 import hashlib
 import locale
 import os
