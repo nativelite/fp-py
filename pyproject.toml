@@ -1,0 +1,36 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "fp-py"
+version = "0.1.0"
+description = "Lightweight device fingerprinting using only the Python standard library."
+readme = "README.md"
+requires-python = ">=3.9"
+license = { file = "LICENSE" }
+authors = [{ name = "NativeLite" }]
+keywords = ["fingerprint", "device", "stdlib", "zero-dependency", "nativelite"]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent",
+  "Topic :: Security",
+]
+
+# nativelite core rule: ZERO third-party runtime dependencies. Do not add to this.
+dependencies = []
+
+[project.urls]
+Homepage = "https://github.com/nativelite/fp-py"
+Issues = "https://github.com/nativelite/fp-py/issues"
+
+# Dev-only tooling. Never a runtime dependency; not shipped in the wheel's deps.
+[project.optional-dependencies]
+dev = ["coverage"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/fp"]
+
+[tool.hatch.build.targets.sdist]
+include = ["src/fp", "README.md", "LICENSE", "CHANGELOG.md"]
