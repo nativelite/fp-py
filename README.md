@@ -1,5 +1,6 @@
 # fp-py
-A fast, lightweight device fingerprinting module that is anti-bloat.
+A device fingerprinting module built entirely on the Python standard library —
+**zero runtime dependencies**.
 
 The library mirrors the goals of `fp-js` but is implemented using only Python's
 standard library—no external dependencies are required. It gathers a selection
