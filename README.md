@@ -37,3 +37,26 @@ print(resp)
 
 You can also retrieve the value directly with `fp.client.get_fingerprint()` if
 you prefer to handle network communication yourself.
+
+## Installation
+
+```bash
+pip install fp-py            # from a checkout: pip install .
+```
+
+`fp-py` has **zero runtime dependencies** — it imports only the Python standard
+library. This is declared in `pyproject.toml` (`dependencies = []`) and enforced
+in CI by `tools/dep_guard.py`.
+
+## Development
+
+Run the full dev loop locally — no external services, no paid tooling:
+
+```bash
+python -m pip install -e ".[dev]"   # one-time (adds coverage, dev-only)
+python dev.py check                 # zero-dependency guard + unittest suite
+python dev.py cov                   # tests + coverage report
+```
+
+`dev.py` is a stdlib-only runner (`python dev.py {check,test,cov,guard}`). CI runs
+the same `unittest` suite across Python 3.9–3.13 plus the dependency guard.
