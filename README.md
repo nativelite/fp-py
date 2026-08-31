@@ -47,7 +47,7 @@ pip install fp-py            # from a checkout: pip install .
 
 `fp-py` has **zero runtime dependencies** — it imports only the Python standard
 library. This is declared in `pyproject.toml` (`dependencies = []`) and enforced
-in CI by `tools/dep_guard.py`.
+by `tools/dep_guard.py` (part of the local `dev.py check`).
 
 ## Development
 
@@ -59,5 +59,6 @@ python dev.py check                 # zero-dependency guard + unittest suite
 python dev.py cov                   # tests + coverage report
 ```
 
-`dev.py` is a stdlib-only runner (`python dev.py {check,test,cov,guard}`). CI runs
-the same `unittest` suite across Python 3.9–3.13 plus the dependency guard.
+`dev.py` is a stdlib-only runner (`python dev.py {check,test,cov,guard}`); running
+`check` before every push is the gate (there is no CI right now — GitHub Actions
+are off, 2026-08-30). It runs the `unittest` suite plus the dependency guard.
